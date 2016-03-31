@@ -1,29 +1,70 @@
 import * as types from '../constants/ActionTypes';
 
-const initialState = {
+const initialState = [{
 	isRefreshing: false,
 	loading: false,
 	isLoadMore: false,
 	noMore: false,
-	articleList: {}
-}
+	articleList: []
+},{
+	isRefreshing: false,
+	loading: false,
+	isLoadMore: false,
+	noMore: false,
+	articleList: []
+},{
+	isRefreshing: false,
+	loading: false,
+	isLoadMore: false,
+	noMore: false,
+	articleList: []
+}];
 
 export default function read(state = initialState, action) {
 	switch (action.type) {
 		case types.FETCH_ARTICLE_LIST:
-			return Object.assign({}, state, {
-				isRefreshing: action.isRefreshing,
-				loading: action.loading,
-				isLoadMore: action.isLoadMore
-			});
+			switch (action.category) {
+				case 'Android':
+					state[0].isRefreshing = action.isRefreshing
+					break;
+				case 'iOS':
+					state[1].isRefreshing = action.isRefreshing
+					break;
+				default:
+					state[2].isRefreshing = action.isRefreshing
+			}
+			return Object.assign({}, state);
 		case types.RECEIVE_ARTICLE_LIST:
-			return Object.assign({}, state, {
-				isRefreshing: false,
-				isLoadMore: false,
-				noMore: action.articleList.length == 0,
-				articleList: state.isLoadMore ? loadMore(state, action) : combine(state, action),
-				loading: state.articleList[action.typeId] == undefined
-			});
+			switch (action.category) {
+				case 'Android':
+					state[0].isRefreshing = action.isRefreshing;
+					state[0].articleList = action.rankList.results;
+					break;
+				case 'iOS':
+					state[1].isRefreshing = action.isRefreshing;
+					state[1].articleList = action.rankList.results;
+					break;
+				default:
+					state[2].isRefreshing = action.isRefreshing;
+					state[2].articleList = action.rankList.results;
+			}
+			return Object.assign({}, state);
+		case types.RECEIVE_ARTICLE_LIST_MORE:
+			switch (action.category) {
+				case 'Android':
+					state[0].isRefreshing = action.isRefreshing;
+					state[0].articleList = state[0].articleList.concat(action.rankList.results);
+					break;
+				case 'iOS':
+					state[1].isRefreshing = action.isRefreshing;
+					state[1].articleList = state[1].articleList.concat(action.rankList.results);
+					break;
+				default:
+					state[2].isRefreshing = action.isRefreshing;
+					state[2].articleList = state[2].articleList.concat(action.rankList.results);
+			}
+			return Object.assign({}, state);
+		break;
 		default:
 			return state;
 	}

@@ -5,18 +5,26 @@ import React, {
   DrawerLayoutAndroid,
   TouchableHighlight,
   Dimensions,
+  ScrollView,
+  RefreshControl,
   Image,
   View
 } from 'react-native';
+import {connect} from 'react-redux';
+import ScrollableTabView  from 'react-native-scrollable-tab-view';
+import ArticleList from './ArticleList';
 class Home extends React.Component {
 
   constructor(props) {
     super(props);
-     this.navigator = this.props.navigator;
+    this.state = {
+      isRefreshing: false
+    }
+    this.navigator = this.props.navigator;
   }
 
   _onHomeClick(){
-
+    this.refs.drawer.closeDrawer()
   }
 
   _onMenuClick(){
@@ -48,6 +56,12 @@ class Home extends React.Component {
             </TouchableHighlight>
             <Text style = {styles.headerText}>干货分享</Text>
           </View>
+          <ScrollableTabView tabBarUnderlineColor = "white"
+            tabBarInactiveTextColor = "#F2F2F2" tabBarBackgroundColor = "#27B5EE" tabBarActiveTextColor = "white">
+            <ArticleList category = 'Android' tabLabel = "安卓" {...this.props}></ArticleList>
+            <ArticleList category = 'iOS' tabLabel = "苹果" {...this.props}></ArticleList>
+            <ArticleList category = '拓展资源' tabLabel = "拓展" {...this.props}></ArticleList>
+          </ScrollableTabView>
         </View>
       </DrawerLayoutAndroid>
     );
@@ -94,10 +108,16 @@ const styles = StyleSheet.create({
     padding: 10
   },
   headerText: {
-    fontSize: 25,
+    fontSize: 22,
     color: 'white',
     marginLeft: 10
   }
 });
 
-export{ Home as default };
+function mapStateToProps(state) {
+  const {read} = state;
+  return {
+    read
+  }
+}
+export default connect(mapStateToProps)(Home);
