@@ -5,18 +5,21 @@ const initialState = [{
 	loading: false,
 	isLoadMore: false,
 	noMore: false,
+	index: 1,
 	articleList: []
 },{
 	isRefreshing: false,
 	loading: false,
 	isLoadMore: false,
 	noMore: false,
+	index: 1,
 	articleList: []
 },{
 	isRefreshing: false,
 	loading: false,
 	isLoadMore: false,
 	noMore: false,
+	index: 1,
 	articleList: []
 }];
 
@@ -54,14 +57,17 @@ export default function read(state = initialState, action) {
 				case 'Android':
 					state[0].isRefreshing = action.isRefreshing;
 					state[0].articleList = state[0].articleList.concat(action.rankList.results);
+					state[0].index = state[0].index + 1;
 					break;
 				case 'iOS':
 					state[1].isRefreshing = action.isRefreshing;
 					state[1].articleList = state[1].articleList.concat(action.rankList.results);
+					state[1].index = state[0].index + 1;
 					break;
 				default:
 					state[2].isRefreshing = action.isRefreshing;
 					state[2].articleList = state[2].articleList.concat(action.rankList.results);
+					state[2].index = state[0].index + 1;
 			}
 			return Object.assign({}, state);
 		break;

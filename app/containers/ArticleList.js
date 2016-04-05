@@ -14,7 +14,7 @@ import React, {
 } from 'react-native';
 import RequestBuilder from '../http/RequestBuilder';
 import {fetchArticles} from '../actions/article';
-
+import DetailArticleCmp from './DetailArticleCmp';
 class ArticleList extends React.Component {
 
   constructor(props) {
@@ -47,7 +47,9 @@ class ArticleList extends React.Component {
             onEndReached={this._onEndReached.bind(this, dispatch, nowRead, category)}
             dataSource={this.dataSource.cloneWithRows(nowRead.articleList)}
             renderRow={this._renderRow.bind(this)}
+            //renderSectionHeader  = {this._renderSectionHeader.bind(this)}
             initialListSize={10}
+            onEndReachedThreshold={10}
             pageSize={nowRead.articleList.length}
             refreshControl={
                 <RefreshControl
@@ -70,7 +72,27 @@ class ArticleList extends React.Component {
     this.componentWillMount();
   }
 
-  _renderRow(rowData,sectionID, rowID, highlightRow){
+  _onItemClick(rowData,rowID){
+    const { navigator } = this.props;
+    if(navigator) {
+        navigator.push({
+            name: 'DetailArticleCmp',
+            component: DetailArticleCmp,
+            params:{
+              rowData
+            }
+        })
+    }
+  }
+  _renderSectionHeader(sectionData, sectionID){
+    retrun(
+      <View>
+        <Text>123</Text>
+      </View>
+    )
+
+  }
+  _renderRow(rowData, sectionID, rowID, highlightRow){
     return(
       <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)" onPress={()=>this._onItemClick(rowData,rowID)}>
         <View style={{flexDirection:'row',padding:12,borderBottomWidth:StyleSheet.hairlineWidth,borderColor:'#c9c9c9'}}>
@@ -79,16 +101,19 @@ class ArticleList extends React.Component {
             style = {{height:80,width:120}}
           />
           <View style={{marginLeft:10,flex:1}}>
-            <Text style={{fontSize: 18,fontWeight: 'bold',color:'black'}}>{rowData.who}</Text>
-            <Text style={{flex:1}}>{rowData.desc}</Text>
+            <Text style={{fontSize: 15,fontWeight: 'bold',color:'black'}}>{rowData.desc}</Text>
+            <View style={{marginTop: 4, justifyContent: 'space-between', flexDirection: 'row'}}>
+              <Text style={{}}>{'作者：' + rowData.who}</Text>
+              <Text style={{}}>{this._FormatDate(rowData.publishedAt)}</Text>
+            </View>
           </View>
         </View>
       </TouchableHighlight>
     );
   }
-  _onEndReached(dispatch, nowRead, category){
+  _onEndReached(dispatch, nowRead, category, index){
     InteractionManager.runAfterInteractions(() => {
-      dispatch(fetchArticles(category, 2, true, nowRead));
+      dispatch(fetchArticles(category, nowRead.index + 1, true, nowRead));
     });
   }
   _renderFooter(isFirstLoaded){
@@ -124,6 +149,10 @@ class ArticleList extends React.Component {
         </View>
       );
     }
+  }
+  _FormatDate (strTime) {
+    var date = new Date(strTime);
+    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
   }
 }
 const styles = StyleSheet.create({

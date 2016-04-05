@@ -6,6 +6,7 @@ export function fetchArticles(category = 'Android', index = 1, isLoadMore, nowRe
 			dispatch(fetchArticleList(category));
 		}
 		let URL = `http://gank.io/api/data/${category}/10/${index}`;
+		console.log(URL);
     fetch(URL).then(response => response.json())
       .then(responseData => {
         console.log(responseData);
