@@ -13,6 +13,7 @@ import React, {
 import {connect} from 'react-redux';
 import ScrollableTabView  from 'react-native-scrollable-tab-view';
 import ArticleList from './ArticleList';
+import BeautyCmp from './BeautyCmp';
 class Home extends React.Component {
 
   constructor(props) {
@@ -31,7 +32,30 @@ class Home extends React.Component {
     this.refs.drawer.openDrawer()
   }
 
+  _onAboutClick(navigator){
+    this.refs.drawer.closeDrawer()
+    // if(navigator) {
+    //     navigator.push({
+    //         name: 'DetailArticleCmp',
+    //         component: DetailArticleCmp,
+    //         params:{
+    //         }
+    //     })
+    // }
+  }
+
+  _onBeautyClick(props){
+    this.refs.drawer.closeDrawer()
+    if(props.navigator) {
+        props.navigator.push({
+            name: 'BeautyCmp',
+            component: BeautyCmp
+        })
+    }
+  }
+
   render() {
+    const { navigator } = this.props;
     let navigationView = (
       <View style = {styles.container}>
         <Image style = {styles.headerImage} source = {require('../../images/bg_drawer_header.png')} />
@@ -39,6 +63,18 @@ class Home extends React.Component {
           <View style = {styles.item}>
             <Image style = {styles.iconHomeImage} source = {require('../../images/icon_home.png')}></Image>
             <Text style = {styles.itemText}>首页</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight style = {{marginTop: 10}} underlayColor = "rgba(34, 26, 38, 0.1)" onPress={() => this._onBeautyClick(this.props)}>
+          <View style = {styles.item}>
+            <Image style = {styles.iconHomeImage} source = {require('../../images/icon_beautiful.png')}></Image>
+            <Text style = {styles.itemText}>福利</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight style = {{marginTop: 10}} underlayColor = "rgba(34, 26, 38, 0.1)" onPress={() => this._onAboutClick(this.props)}>
+          <View style = {styles.item}>
+            <Image style = {styles.iconHomeImage} source = {require('../../images/icon_about.png')}></Image>
+            <Text style = {styles.itemText}>关于</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -56,7 +92,7 @@ class Home extends React.Component {
             </TouchableHighlight>
             <Text style = {styles.headerText}>干货分享</Text>
           </View>
-          <ScrollableTabView tabBarUnderlineColor = "white"
+          <ScrollableTabView style = {{flex: 1}} tabBarUnderlineColor = "white"
             tabBarInactiveTextColor = "#F2F2F2" tabBarBackgroundColor = "#27B5EE" tabBarActiveTextColor = "white">
             <ArticleList category = 'Android' tabLabel = "安卓" {...this.props}></ArticleList>
             <ArticleList category = 'iOS' tabLabel = "苹果" {...this.props}></ArticleList>

@@ -43,6 +43,7 @@ class ArticleList extends React.Component {
     return(
 
         <ListView
+            style={{flex: 1}}
             renderFooter={this._renderFooter.bind(this, isFirstLoaded)}
             onEndReached={this._onEndReached.bind(this, dispatch, nowRead, category)}
             dataSource={this.dataSource.cloneWithRows(nowRead.articleList)}
@@ -104,7 +105,7 @@ class ArticleList extends React.Component {
             <Text style={{fontSize: 15,fontWeight: 'bold',color:'black'}}>{rowData.desc}</Text>
             <View style={{marginTop: 4, justifyContent: 'space-between', flexDirection: 'row'}}>
               <Text style={{}}>{'作者：' + rowData.who}</Text>
-              <Text style={{}}>{this._FormatDate(rowData.publishedAt)}</Text>
+              <Text style={{}}>{this._formatDate(rowData.publishedAt)}</Text>
             </View>
           </View>
         </View>
@@ -112,6 +113,9 @@ class ArticleList extends React.Component {
     );
   }
   _onEndReached(dispatch, nowRead, category, index){
+    if(typeof(nowRead) == 'undefined' || nowRead.isFirstLoaded){
+      return;
+    }
     InteractionManager.runAfterInteractions(() => {
       dispatch(fetchArticles(category, nowRead.index + 1, true, nowRead));
     });
@@ -150,7 +154,7 @@ class ArticleList extends React.Component {
       );
     }
   }
-  _FormatDate (strTime) {
+  _formatDate (strTime) {
     var date = new Date(strTime);
     return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
   }

@@ -2,6 +2,14 @@ import * as types from '../constants/ActionTypes';
 
 const initialState = [{
 	isRefreshing: false,
+	isFirstLoaded: true,
+	isLoadMore: false,
+	noMore: false,
+	index: 1,
+	articleList: []
+},{
+	isRefreshing: false,
+	isFirstLoaded: true,
 	loading: false,
 	isLoadMore: false,
 	noMore: false,
@@ -9,13 +17,7 @@ const initialState = [{
 	articleList: []
 },{
 	isRefreshing: false,
-	loading: false,
-	isLoadMore: false,
-	noMore: false,
-	index: 1,
-	articleList: []
-},{
-	isRefreshing: false,
+	isFirstLoaded: true,
 	loading: false,
 	isLoadMore: false,
 	noMore: false,
@@ -37,21 +39,26 @@ export default function read(state = initialState, action) {
 					state[2].isRefreshing = action.isRefreshing
 			}
 			return Object.assign({}, state);
+		break;
 		case types.RECEIVE_ARTICLE_LIST:
 			switch (action.category) {
 				case 'Android':
 					state[0].isRefreshing = action.isRefreshing;
 					state[0].articleList = action.rankList.results;
+					state[0].isFirstLoaded = false;
 					break;
 				case 'iOS':
 					state[1].isRefreshing = action.isRefreshing;
 					state[1].articleList = action.rankList.results;
+					state[1].isFirstLoaded = false;
 					break;
 				default:
 					state[2].isRefreshing = action.isRefreshing;
 					state[2].articleList = action.rankList.results;
+					state[2].isFirstLoaded = false;
 			}
 			return Object.assign({}, state);
+		break;
 		case types.RECEIVE_ARTICLE_LIST_MORE:
 			switch (action.category) {
 				case 'Android':
