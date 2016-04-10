@@ -13,9 +13,7 @@ Written in the react-native framework
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/about.png" width = "260" align=center />
 
 ## Download From Android Market
-*From 360 Android Market:* [Download rank]()
-
-*From Wandou Labs:* [Download rank]()
+*From 360 Android Market:* [Download rank]checking...
 
 ## Dependency
 ```
