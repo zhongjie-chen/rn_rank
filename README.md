@@ -1,5 +1,6 @@
 # React-native rank （干货分享）
 This is a sharing technology application，is very 因垂思挺。
+Written in the react-native framework
 ## Screenshot
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/index_android.png" width = "260" align=center />
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/index_ios_refresh.png" width = "260" align=center />
@@ -10,3 +11,53 @@ This is a sharing technology application，is very 因垂思挺。
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/beauty_2.png" width = "260" align=center />
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/beauty_3.png" width = "260" align=center />
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/about.png" width = "260" align=center />
+
+## Download From Android Market
+*From 360 Android Market:* [Download rank](http://zhushou.360.cn/detail/index/soft_id/3217938?recrefer=SE_D_Reading)
+
+*From Wandou Labs:* [Download rank](http://www.wandoujia.com/apps/com.reading)
+
+## Dependency
+```
+"dependencies": {
+    "react": "^0.14.7",
+    "react-native": "^0.22.2",
+    "react-native-scrollable-tab-view": "^0.4.0",
+    "react-redux": "^4.4.1",
+    "redux": "^3.3.1",
+    "redux-thunk": "^2.0.1"
+  }
+```
+## How To Build And Run
+### Step One
+```
+npm install -g react-native-cli
+```
+### Step Two
+```
+npm install
+```
+### Step Three
+```
+react-native start
+```
+### Optional Step
+```
+npm run setup
+```
+
+
+## Welcome
+>* Star
+>* Fork
+>* PR
+>* Issue
+
+## Thanks All!
+*@gank_team*
+
+## Contributors
+[@zhogjie-chen](https://github.com/zhongjie-chen)
+
+## License
+Apache License 2.0
