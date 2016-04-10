@@ -9,7 +9,6 @@ import React, {
     ProgressBarAndroid,
     Dimensions,
     StyleSheet,
-    BackAndroid,
     Animated,
     Easing,
 } from 'react-native';
@@ -24,10 +23,6 @@ class DetailArticleCmp extends React.Component {
           progressValue: new Animated.Value(0)
         };
         const {navigator} = this.props;
-        BackAndroid.addEventListener('hardwareBackPress', () =>{
-         this._onBackClick(navigator);
-         return true;
-        });
     }
 
     componentDidMount() {

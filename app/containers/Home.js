@@ -7,12 +7,14 @@ import React, {
   Dimensions,
   ScrollView,
   RefreshControl,
+  BackAndroid,
   Image,
   View
 } from 'react-native';
 import {connect} from 'react-redux';
 import ScrollableTabView  from 'react-native-scrollable-tab-view';
 import ArticleList from './ArticleList';
+import AboutCmp from './AboutCmp';
 import BeautyCmp from './BeautyCmp';
 class Home extends React.Component {
 
@@ -23,7 +25,21 @@ class Home extends React.Component {
     }
     this.navigator = this.props.navigator;
   }
-
+  componentWillUnmount() {
+    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+  componentDidMount() {
+      BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+  }
+  onBackAndroid(){
+    const {navigator} = this.props;
+    const routers = navigator.getCurrentRoutes();
+    if (routers.length > 1) {
+      navigator.pop();
+      return true;
+    }
+    return false;
+  };
   _onHomeClick(){
     this.refs.drawer.closeDrawer()
   }
@@ -32,16 +48,14 @@ class Home extends React.Component {
     this.refs.drawer.openDrawer()
   }
 
-  _onAboutClick(navigator){
+  _onAboutClick(props){
     this.refs.drawer.closeDrawer()
-    // if(navigator) {
-    //     navigator.push({
-    //         name: 'DetailArticleCmp',
-    //         component: DetailArticleCmp,
-    //         params:{
-    //         }
-    //     })
-    // }
+    if(props.navigator) {
+        props.navigator.push({
+            name: 'AboutCmp',
+            component: AboutCmp
+        })
+    }
   }
 
   _onBeautyClick(props){
@@ -58,10 +72,13 @@ class Home extends React.Component {
     const { navigator } = this.props;
     let navigationView = (
       <View style = {styles.container}>
-        <Image style = {styles.headerImage} source = {require('../../images/bg_drawer_header.png')} />
+        <Image style = {styles.headerImage} source = {require('../../images/bg_drawer_header.png')} >
+          <Text  style = {{color:'white',margin:80}}>技术干货&&福利</Text>
+        </Image>
         <TouchableHighlight underlayColor = "rgba(34, 26, 38, 0.1)" onPress={() => this._onHomeClick()}>
           <View style = {styles.item}>
-            <Image style = {styles.iconHomeImage} source = {require('../../images/icon_home.png')}></Image>
+            <Image style = {styles.iconHomeImage} source = {require('../../images/icon_home.png')}>
+            </Image>
             <Text style = {styles.itemText}>首页</Text>
           </View>
         </TouchableHighlight>

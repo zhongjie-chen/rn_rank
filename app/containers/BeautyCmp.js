@@ -9,15 +9,16 @@ import React, {
     InteractionManager,
     ProgressBarAndroid,
     Dimensions,
+    Navigator,
     StyleSheet,
-    BackAndroid,
     Animated,
     Easing,
 } from 'react-native';
 
 import {fetchBeauty} from '../actions/beauty';
 import {connect} from 'react-redux';
-
+import ImageDetailCmp from './ImageDetailCmp';
+import Lightbox from 'react-native-lightbox';
 class BeautyCmp extends React.Component {
 
     constructor(props) {
@@ -25,20 +26,15 @@ class BeautyCmp extends React.Component {
         this.state = {
           progressValue: new Animated.Value(0)
         };
-        const {navigator} = this.props;
-        BackAndroid.addEventListener('hardwareBackPress', () =>{
-         this._onBackClick(navigator);
-         return true;
-        });
     }
 
     componentDidMount() {
+
         Animated.timing(this.state.progressValue, {
-            toValue: width * 0.8,
+            toValue: width,
             duration: 1500,
             easing: Easing.linear
         }).start();
-
     }
 
     componentWillMount(){
@@ -48,10 +44,12 @@ class BeautyCmp extends React.Component {
     //  });
     }
 
-    _onBackClick(navigator){
+    _onBackClick(){
+      const {navigator} = this.props;
       if(navigator) {
         navigator.pop();
       }
+      return true;
     }
 
 
@@ -70,37 +68,57 @@ class BeautyCmp extends React.Component {
         borderRadius: 8
       };
   }
-    _getImages(items){
-      // if(items){
-      //   this._onLoadEnd();
-      // }
+
+  _onRefreshClick(){
+    this.componentWillMount()
+  }
+  _onImageClick(item, navigator){
+    if(navigator){
+      navigator.push({
+        name:'ImageDetailCmp',
+        component : ImageDetailCmp,
+        params: {
+          image:item
+        }
+      })
+    }
+  }
+    _getImages(items, navigator){
       return(
         items.map((item,i)=>{
           return(
-            <Image key = {i} style={{height:parseInt(Math.random() * 20 + 12) * 10,width:width/2, margin:4}} source = {{uri :item.url}}></Image>
+            <TouchableOpacity key = {i}   style={{padding:2}} onPress = {()=>this._onImageClick(item,navigator)}>
+              <Image  key = {i} style={{height:parseInt(Math.random() * 20 + 12) * 10,width:(width-8)/2}} source = {{uri :item.url}}>
+              </Image>
+            </TouchableOpacity>
+
           )
         })
       )
     }
     render() {
       const {beautyReducers, navigator} = this.props;
+      //navigator.props.configureScene = ((route, routeStack) => Navigator.SceneConfigs.FadeAndroid);
       return (
               <View style={{flex :1}}>
                 <View style = {styles.headerBar}>
-                  <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)" onPress={()=>this._onBackClick(navigator)}>
+                  <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)" onPress={()=>this._onBackClick()}>
                     <Image style = {styles.iconImage} source = {require('../../images/icon_back.png')}></Image>
                   </TouchableHighlight>
                   <Text style = {styles.headerText}>福利</Text>
+                  <TouchableHighlight style = {{right :0}} underlayColor="rgba(34, 26, 38, 0.1)" onPress={()=>this._onRefreshClick()}>
+                    <Image style = {styles.iconImage} source = {require('../../images/ic_refresh.png')}></Image>
+                  </TouchableHighlight>
                 </View>
                 <Animated.View style = {{height: 2, backgroundColor: '#27B5EE', width: this.state.progressValue}}>
                 </Animated.View>
                 <ScrollView>
                   <View style = {{flexDirection : 'row'}}>
                     <View>
-                      {this._getImages(beautyReducers.beauty.slice(0, 10))}
+                      {this._getImages(beautyReducers.beauty.slice(0, 6), navigator)}
                     </View>
                     <View>
-                      {this._getImages(beautyReducers.beauty.slice(10, 20))}
+                      {this._getImages(beautyReducers.beauty.slice(6, 12), navigator)}
                     </View>
 
                   </View>
@@ -119,6 +137,7 @@ const styles = StyleSheet.create({
   headerBar: {
     backgroundColor: '#27B5EE',
     flexDirection: 'row',
+    justifyContent:'space-between',
     alignItems: 'center',
     padding: 10
   },
