@@ -13,9 +13,9 @@ Written in the react-native framework
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/about.png" width = "260" align=center />
 
 ## Download From Android Market
-*From 360 Android Market:* [Download rank](http://zhushou.360.cn/detail/index/soft_id/3217938?recrefer=SE_D_Reading)
+*From 360 Android Market:* [Download rank]()
 
-*From Wandou Labs:* [Download rank](http://www.wandoujia.com/apps/com.reading)
+*From Wandou Labs:* [Download rank]()
 
 ## Dependency
 ```
@@ -53,8 +53,10 @@ npm run setup
 >* PR
 >* Issue
 
-## Thanks All!
-*@gank_team*
+## Thanks
+*[@干货集中营](http://gank.io/)*
+*[@开发者头条](http://toutiao.io/)*
+*[@reading](https://github.com/attentiveness/reading)*
 
 ## Contributors
 [@zhogjie-chen](https://github.com/zhongjie-chen)
