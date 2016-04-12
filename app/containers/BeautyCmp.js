@@ -18,7 +18,6 @@ import React, {
 import {fetchBeauty} from '../actions/beauty';
 import {connect} from 'react-redux';
 import ImageDetailCmp from './ImageDetailCmp';
-import Lightbox from 'react-native-lightbox';
 class BeautyCmp extends React.Component {
 
     constructor(props) {
