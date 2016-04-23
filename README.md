@@ -19,30 +19,21 @@ Written in the react-native framework
 ```
 "dependencies": {
     "react": "^0.14.7",
-    "react-native": "^0.22.2",
-    "react-native-scrollable-tab-view": "^0.4.0",
+    "react-native": "^0.24.1",
+    "react-native-drawer": "^2.0.0",
+    "react-native-scrollable-tab-view": "^0.4.1",
     "react-redux": "^4.4.1",
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1"
   }
 ```
 ## How To Build And Run
-### Step One
-```
-npm install -g react-native-cli
-```
-### Step Two
-```
-npm install
-```
-### Step Three
-```
-react-native start
-```
-### Optional Step
-```
-npm run setup
-```
+>* 1.Prepare your environment: Requirements and Android Setup
+>* 2.Clone this repo, and goto the project root directory
+>* 3.run npm install
+>* 4.run for ios: react-native run-ios
+>* 5.run for android: react-native run-android
+>* 6.Enjoy
 
 
 ## Welcome
@@ -58,6 +49,7 @@ npm run setup
 
 ## Contributors
 [@zhogjie-chen](https://github.com/zhongjie-chen)
+[@liupeng](https://github.com/liupeng826)
 
 ## License
 Apache License 2.0

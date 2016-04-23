@@ -43,6 +43,7 @@ class ArticleList extends React.Component {
     return(
 
         <ListView
+            enableEmptySections={true}
             style={{flex: 1}}
             renderFooter={this._renderFooter.bind(this, isFirstLoaded)}
             onEndReached={this._onEndReached.bind(this, dispatch, nowRead, category)}
@@ -97,10 +98,10 @@ class ArticleList extends React.Component {
     return(
       <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)" onPress={()=>this._onItemClick(rowData,rowID)}>
         <View style={{flexDirection:'row',padding:12,borderBottomWidth:StyleSheet.hairlineWidth,borderColor:'#c9c9c9'}}>
-          <Image
+          {/*<Image
             source = {{uri: rowData.small_photo}}
             style = {{height:80,width:120}}
-          />
+          />*/}
           <View style={{marginLeft:10,flex:1}}>
             <Text style={{fontSize: 15,fontWeight: 'bold',color:'black'}}>{rowData.desc}</Text>
             <View style={{marginTop: 4, justifyContent: 'space-between', flexDirection: 'row'}}>

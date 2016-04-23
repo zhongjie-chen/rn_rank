@@ -87,7 +87,7 @@ class BeautyCmp extends React.Component {
         items.map((item,i)=>{
           return(
             <TouchableOpacity key = {i}   style={{padding:2}} onPress = {()=>this._onImageClick(item,navigator)}>
-              <Image  key = {i} style={{height:parseInt(Math.random() * 20 + 12) * 10,width:(width-8)/2}} source = {{uri :item.url}}>
+              <Image  key = {i+'_'+item._id} style={{height:parseInt(Math.random() * 20 + 12) * 10,width:(width-8)/2}} source = {{uri :item.url}}>
               </Image>
             </TouchableOpacity>
 

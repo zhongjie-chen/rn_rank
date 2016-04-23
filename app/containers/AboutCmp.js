@@ -54,12 +54,18 @@ class AboutCmp extends React.Component {
                   <Text onPress={()=>this._onLinkClick('http://gank.io')}
                    style={{color:'#9c9c9c',fontSize:14,margin:6}}>@干货集中营。</Text>
                 </Text>
-                <Text style={{alignSelf:'center',fontSize:14,margin:6}} >作者：陈忠杰 杭州 328197444</Text>
+                <Text style={{alignSelf:'center',fontSize:14,margin:6}} >作者(Android)：陈忠杰 杭州 328197444</Text>
                 <Text style={{alignSelf:'center',fontSize:14,margin:6,color:'blue',}} onPress={()=>this._onLinkClick('mailto:czjchn@163.com')} >e-mail:czjchn@163.com</Text>
                 <Text style={{alignSelf:'center',fontSize:14,color:'blue',margin:6}} onPress={()=>this._onLinkClick('https://github.com/zhongjie-chen')} >
-                @Github</Text>
-                <Text style={{alignSelf:'center',fontSize:14,color:'blue',margin:6}}  onPress={()=>this._onLinkClick('https://github.com/zhongjie-chen/rn_rank')} >
-                @该项目开源地址</Text>
+                  @Github</Text>
+                <Text style={{alignSelf:'center',fontSize:14,color:'blue',margin:6}} onPress={()=>this._onLinkClick('https://github.com/zhongjie-chen/rn_rank')} >
+                  @该项目开源地址1</Text>
+                <Text style={{alignSelf:'center',fontSize:14,margin:6}} >作者(IOS)：刘鹏 天津 32003737</Text>
+                <Text style={{alignSelf:'center',fontSize:14,margin:6,color:'blue',}} onPress={()=>this._onLinkClick('mailto:liupeng826@hotmail.com')} >e-mail:liupeng826@hotmail.com</Text>
+                <Text style={{alignSelf:'center',fontSize:14,color:'blue',margin:6}} onPress={()=>this._onLinkClick('https://github.com/liupeng826')} >
+                  @Github</Text>
+                <Text style={{alignSelf:'center',fontSize:14,color:'blue',margin:6}} onPress={()=>this._onLinkClick('https://github.com/liupeng826/rn_rank')} >
+                  @该项目开源地址2</Text>
                 <Text style={{alignSelf:'center',fontSize:14,margin:6}} >感谢
                 <Text onPress={()=>this._onLinkClick('https://github.com/facebook/react-native')}
                  style={{color:'#9c9c9c',fontSize:14,margin:6}}>@React-native</Text>
