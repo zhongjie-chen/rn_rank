@@ -48,7 +48,7 @@ class AboutCmp extends React.Component {
                   <Text style = {styles.headerText}>关于</Text>
                 </View>
                 <Image style={{alignSelf:'center',margin:40}} source = {require('../../images/ic_app.png')}></Image>
-                <Text style={{alignSelf:'center',marginTop:-38,color:'#9c9c9c'}}>干货分享1.0.0</Text>
+                <Text style={{alignSelf:'center',marginTop:-38,color:'#9c9c9c'}}>干货分享2.0.0</Text>
                 <Text style={{alignSelf:'center',fontSize:18,margin:6}}>每日提供技术干货的App。</Text>
                 <Text style={{alignSelf:'center',fontSize:14,margin:6}}>本App中所有数据均来自
                   <Text onPress={()=>this._onLinkClick('http://gank.io')}
