@@ -9,6 +9,7 @@ import React, {
   ScrollView,
   InteractionManager,
   ProgressBarAndroid,
+  Platform,
   Image,
   View
 } from 'react-native';
@@ -39,7 +40,7 @@ class ArticleList extends React.Component {
       default:
         nowRead = read[2];
     }
-    let isFirstLoaded = nowRead.articleList.length == 0 ? false : true;
+    let isFirstLoaded = nowRead.articleList.length != 0;
     return(
 
         <ListView
@@ -58,7 +59,7 @@ class ArticleList extends React.Component {
                   refreshing={nowRead.isRefreshing}
                   onRefresh={this._onRefresh.bind(this)}
                   colors={['#ff0000', '#00ff00', '#0000ff','#3ad564']}
-                  progressBackgroundColor="#ffffff"/>}
+                  progressBackgroundColor="#ffff00"/>}
           />
 
     );
@@ -125,32 +126,23 @@ class ArticleList extends React.Component {
     if(!isFirstLoaded){
       return;
     }
+
     if (1) {
-      return (
-        <View
-          style={{
-            marginVertical: 20,
-            paddingBottom: 20,
-            alignSelf: 'center'
-          }}
-        >
-          <ProgressBarAndroid />
-        </View>
-      )
+      if (Platform.OS === 'ios') {
+        return (
+          <View style={styles.progress}></View>
+        );
+      }else {
+        return (
+          <View style={styles.progress}>
+            <ProgressBarAndroid />
+          </View>
+        );
+      }
     } else {
       return (
-        <View
-          style={{
-            marginVertical: 20,
-            paddingBottom: 20,
-            alignSelf: 'center'
-          }}
-        >
-          <Text
-            style={{
-              color: 'rgba(0, 0, 0, 0.3)'
-            }}
-          >数据已结加载完了- -|||</Text>
+        <View style={styles.progress}>
+          <Text style={{color: 'rgba(0, 0, 0, 0.3)'}}>数据已结加载完了- -|||</Text>
         </View>
       );
     }
@@ -163,6 +155,11 @@ class ArticleList extends React.Component {
 const styles = StyleSheet.create({
   container:{
     flex:1
-  }
+  },
+  progress:{
+    marginVertical: 20,
+    paddingBottom: 20,
+    alignSelf: 'center'
+  },
 });
 export{ ArticleList as default };
