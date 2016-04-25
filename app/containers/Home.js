@@ -8,10 +8,12 @@ import React, {
   ScrollView,
   RefreshControl,
   BackAndroid,
+  Platform,
   Image,
   View
 } from 'react-native';
 import {connect} from 'react-redux';
+import Drawer from 'react-native-drawer'
 import ScrollableTabView  from 'react-native-scrollable-tab-view';
 import ArticleList from './ArticleList';
 import AboutCmp from './AboutCmp';
@@ -26,10 +28,18 @@ class Home extends React.Component {
     this.navigator = this.props.navigator;
   }
   componentWillUnmount() {
-    BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+    if (Platform.OS === 'ios') {
+
+    }else{
+      BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+    }
   }
   componentDidMount() {
+    if (Platform.OS === 'ios') {
+
+    }else {
       BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid.bind(this));
+    }
   }
   onBackAndroid(){
     const {navigator} = this.props;
@@ -40,16 +50,28 @@ class Home extends React.Component {
     }
     return false;
   };
-  _onHomeClick(){
-    this.refs.drawer.closeDrawer()
+  _onHomeClick() {
+    if (Platform.OS === 'ios') {
+      this.refs.drawer.close()
+    } else {
+      this.refs.drawer.closeDrawer()
+    }
   }
 
   _onMenuClick(){
-    this.refs.drawer.openDrawer()
+    if (Platform.OS === 'ios') {
+      this.refs.drawer.open()
+    } else {
+      this.refs.drawer.openDrawer()
+    }
   }
 
   _onAboutClick(props){
-    this.refs.drawer.closeDrawer()
+    if (Platform.OS === 'ios') {
+      this.refs.drawer.close()
+    } else {
+      this.refs.drawer.closeDrawer()
+    }
     if(props.navigator) {
         props.navigator.push({
             name: 'AboutCmp',
@@ -59,7 +81,11 @@ class Home extends React.Component {
   }
 
   _onBeautyClick(props){
-    this.refs.drawer.closeDrawer()
+    if (Platform.OS === 'ios') {
+      this.refs.drawer.close()
+    } else {
+      this.refs.drawer.closeDrawer()
+    }
     if(props.navigator) {
         props.navigator.push({
             name: 'BeautyCmp',
@@ -73,7 +99,7 @@ class Home extends React.Component {
     let navigationView = (
       <View style = {styles.container}>
         <Image style = {styles.headerImage} source = {require('../../images/bg_drawer_header.png')} >
-          <Text  style = {{color:'white',margin:80}}>技术干货&&福利</Text>
+          <Text  style = {styles.titleText}>技术干货&&福利</Text>
         </Image>
         <TouchableHighlight underlayColor = "rgba(34, 26, 38, 0.1)" onPress={() => this._onHomeClick()}>
           <View style = {styles.item}>
@@ -96,28 +122,56 @@ class Home extends React.Component {
         </TouchableHighlight>
       </View>
     );
-    return (
-      <DrawerLayoutAndroid
-        ref="drawer"
-        drawerWidth = {width*0.8}
-        drawerPosition = {DrawerLayoutAndroid.positions.Left}
-        renderNavigationView = {() => navigationView}>
-        <View style = {{flex: 1}}>
-          <View style = {styles.headerBar}>
-            <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)" onPress={()=>this._onMenuClick()}>
-              <Image style = {styles.iconImage} source = {require('../../images/ic_menu.png')}></Image>
-            </TouchableHighlight>
-            <Text style = {styles.headerText}>干货分享</Text>
+
+    if (Platform.OS === 'ios') {
+      return (
+        <Drawer
+          ref="drawer"
+          type="overlay"
+          tapToClose={true}
+          openDrawerOffset={0.2}
+          tweenHandler={(ratio) => ({main: { opacity:(2-ratio)/2 }})}
+          content={navigationView}>
+          <View style = {{flex: 1}}>
+            <View style = {styles.headerBar}>
+              <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)" onPress={()=>this._onMenuClick()}>
+                <Image style = {styles.iconImage} source = {require('../../images/ic_menu.png')}></Image>
+              </TouchableHighlight>
+              <Text style = {styles.headerText}>干货分享</Text>
+            </View>
+            <ScrollableTabView style = {{flex: 1}} tabBarUnderlineColor = "white"
+                               tabBarInactiveTextColor = "#F2F2F2" tabBarBackgroundColor = "#27B5EE" tabBarActiveTextColor = "white">
+              <ArticleList category = 'Android' tabLabel = "安卓" {...this.props}></ArticleList>
+              <ArticleList category = 'iOS' tabLabel = "苹果" {...this.props}></ArticleList>
+              <ArticleList category = '拓展资源' tabLabel = "拓展" {...this.props}></ArticleList>
+            </ScrollableTabView>
           </View>
-          <ScrollableTabView style = {{flex: 1}} tabBarUnderlineColor = "white"
-            tabBarInactiveTextColor = "#F2F2F2" tabBarBackgroundColor = "#27B5EE" tabBarActiveTextColor = "white">
-            <ArticleList category = 'Android' tabLabel = "安卓" {...this.props}></ArticleList>
-            <ArticleList category = 'iOS' tabLabel = "苹果" {...this.props}></ArticleList>
-            <ArticleList category = '拓展资源' tabLabel = "拓展" {...this.props}></ArticleList>
-          </ScrollableTabView>
-        </View>
-      </DrawerLayoutAndroid>
-    );
+        </Drawer>
+      );
+    }else{
+      return (
+        <DrawerLayoutAndroid
+          ref="drawer"
+          drawerWidth = {width*0.8}
+          drawerPosition = {DrawerLayoutAndroid.positions.Left}
+          renderNavigationView = {() => navigationView}>
+          <View style = {{flex: 1}}>
+            <View style = {styles.headerBar}>
+              <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)" onPress={()=>this._onMenuClick()}>
+                <Image style = {styles.iconImage} source = {require('../../images/ic_menu.png')}></Image>
+              </TouchableHighlight>
+              <Text style = {styles.headerText}>干货分享</Text>
+            </View>
+            <ScrollableTabView style = {{flex: 1}} tabBarUnderlineColor = "white"
+              tabBarInactiveTextColor = "#F2F2F2" tabBarBackgroundColor = "#27B5EE" tabBarActiveTextColor = "white">
+              <ArticleList category = 'Android' tabLabel = "安卓" {...this.props}></ArticleList>
+              <ArticleList category = 'iOS' tabLabel = "苹果" {...this.props}></ArticleList>
+              <ArticleList category = '拓展资源' tabLabel = "拓展" {...this.props}></ArticleList>
+            </ScrollableTabView>
+          </View>
+        </DrawerLayoutAndroid>
+      );
+    }
   }
 }
 
@@ -164,7 +218,14 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: 'white',
     marginLeft: 10
-  }
+  },
+  titleText: {
+    color:'white',
+    fontSize: 16,
+    textAlign: 'center',
+    backgroundColor: 'transparent',
+    margin: 80,
+  },
 });
 
 function mapStateToProps(state) {

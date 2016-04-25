@@ -9,6 +9,7 @@ import React, {
   ScrollView,
   InteractionManager,
   ProgressBarAndroid,
+  Platform,
   Image,
   View
 } from 'react-native';
@@ -39,10 +40,11 @@ class ArticleList extends React.Component {
       default:
         nowRead = read[2];
     }
-    let isFirstLoaded = nowRead.articleList.length == 0 ? false : true;
+    let isFirstLoaded = nowRead.articleList.length != 0;
     return(
 
         <ListView
+            enableEmptySections={true}
             style={{flex: 1}}
             renderFooter={this._renderFooter.bind(this, isFirstLoaded)}
             onEndReached={this._onEndReached.bind(this, dispatch, nowRead, category)}
@@ -97,10 +99,10 @@ class ArticleList extends React.Component {
     return(
       <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)" onPress={()=>this._onItemClick(rowData,rowID)}>
         <View style={{flexDirection:'row',padding:12,borderBottomWidth:StyleSheet.hairlineWidth,borderColor:'#c9c9c9'}}>
-          <Image
+          {/*<Image
             source = {{uri: rowData.small_photo}}
             style = {{height:80,width:120}}
-          />
+          />*/}
           <View style={{marginLeft:10,flex:1}}>
             <Text style={{fontSize: 15,fontWeight: 'bold',color:'black'}}>{rowData.desc}</Text>
             <View style={{marginTop: 4, justifyContent: 'space-between', flexDirection: 'row'}}>
@@ -124,32 +126,23 @@ class ArticleList extends React.Component {
     if(!isFirstLoaded){
       return;
     }
+
     if (1) {
-      return (
-        <View
-          style={{
-            marginVertical: 20,
-            paddingBottom: 20,
-            alignSelf: 'center'
-          }}
-        >
-          <ProgressBarAndroid />
-        </View>
-      )
+      if (Platform.OS === 'ios') {
+        return (
+          <View style={styles.progress}></View>
+        );
+      }else {
+        return (
+          <View style={styles.progress}>
+            <ProgressBarAndroid />
+          </View>
+        );
+      }
     } else {
       return (
-        <View
-          style={{
-            marginVertical: 20,
-            paddingBottom: 20,
-            alignSelf: 'center'
-          }}
-        >
-          <Text
-            style={{
-              color: 'rgba(0, 0, 0, 0.3)'
-            }}
-          >数据已结加载完了- -|||</Text>
+        <View style={styles.progress}>
+          <Text style={{color: 'rgba(0, 0, 0, 0.3)'}}>数据已结加载完了- -|||</Text>
         </View>
       );
     }
@@ -162,6 +155,11 @@ class ArticleList extends React.Component {
 const styles = StyleSheet.create({
   container:{
     flex:1
-  }
+  },
+  progress:{
+    marginVertical: 20,
+    paddingBottom: 20,
+    alignSelf: 'center'
+  },
 });
 export{ ArticleList as default };
