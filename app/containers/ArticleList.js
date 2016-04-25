@@ -59,7 +59,7 @@ class ArticleList extends React.Component {
                   refreshing={nowRead.isRefreshing}
                   onRefresh={this._onRefresh.bind(this)}
                   colors={['#ff0000', '#00ff00', '#0000ff','#3ad564']}
-                  progressBackgroundColor="#ffff00"/>}
+                  progressBackgroundColor="#ffffff"/>}
           />
 
     );
