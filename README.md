@@ -1,4 +1,7 @@
 # React-native Gank-Share （干货分享）
+[![GitHub stars](https://img.shields.io/github/stars/zhongjie-chen/rn_rank.svg)](https://github.com/zhongjie-chen/rn_rank/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/zhongjie-chen/rn_rank.svg)](https://github.com/zhongjie-chen/rn_rank/network)
+
 This is a sharing technology application，is very 因垂思挺。
 Written in the react-native framework, both support IOS and Android.
 ## Screenshot Android
