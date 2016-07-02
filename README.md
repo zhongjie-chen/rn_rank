@@ -15,7 +15,6 @@ Written in the react-native framework, both support IOS and Android.
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/beauty_1.png" width = "260" align=center />
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/beauty_2.png" width = "260" align=center />
 <img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/beauty_3.png" width = "260" align=center />
-<img src="https://github.com/zhongjie-chen/rn_rank/blob/master/screen/about.png" width = "260" align=center />
 
 ## Screenshot IOS
 <img src="https://github.com/liupeng826/rn_rank/blob/master/screen/index_ios.png" width = "260" align=center />
@@ -24,7 +23,6 @@ Written in the react-native framework, both support IOS and Android.
 <img src="https://github.com/liupeng826/rn_rank/blob/master/screen/beauty_1_ios.png" width = "260" align=center />
 <img src="https://github.com/liupeng826/rn_rank/blob/master/screen/beauty_2_ios.png" width = "260" align=center />
 <img src="https://github.com/liupeng826/rn_rank/blob/master/screen/beauty_3_ios.png" width = "260" align=center />
-<img src="https://github.com/liupeng826/rn_rank/blob/master/screen/about_ios.png" width = "260" align=center />
 
 ## Download From Android Market
 *From jifeng Android Market:* [Download rank](http://apk.gfan.com/Product/App1099977.html)
